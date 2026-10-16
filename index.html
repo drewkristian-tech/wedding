@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teo & Kristian | Save the Date</title>
+  <title>Teo & Kristian | Save the Date & RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-color: #fcfbf9;
+      --card-bg: #ffffff;
+      --text-main: #2c2c2c;
+      --text-muted: #666666;
+      --accent: #8b7e66;
+      --accent-light: #f4f1ea;
+      --border-color: #e5e0d8;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,20 +28,25 @@
 
     body {
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #fcfbf9; /* Soft off-white tone */
-      padding: 1.5rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
     }
 
-    .card-container {
+    .wrapper {
       max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Image Card Section */
+    .card-container {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 2.5rem;
     }
 
     .save-the-date-img {
@@ -34,15 +54,495 @@
       height: auto;
       display: block;
       border-radius: 4px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Subtle border drop shadow */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Form Card Styles */
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      background-color: #faf9f6;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background-color: #fff;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-option, .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .radio-option input, .checkbox-option input {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+    }
+
+    .plus-one-box {
+      background: var(--accent-light);
+      padding: 1.2rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      border: 1px dashed var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #756a54;
+    }
+
+    .btn-secondary {
+      background-color: #2c2c2c;
+      width: auto;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.75rem;
+    }
+
+    .btn-secondary:hover {
+      background-color: #444;
+    }
+
+    /* Admin Section */
+    .admin-toggle {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .admin-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .admin-panel {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-card {
+      background: var(--accent-light);
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 1.8rem;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .stat-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #faf9f6;
+      font-weight: 600;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: var(--accent-light);
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+    }
+
+    .success-message h3 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
 <body>
 
-  <main class="card-container">
-    <img src="save-the-date.JPG" alt="Teo & Kristian - Save the Date" class="save-the-date-img">
-  </main>
+  <div class="wrapper">
 
+    <!-- Save the Date Image -->
+    <main class="card-container">
+      <img src="save-the-date.JPG" alt="Teo & Kristian - Save the Date" class="save-the-date-img">
+    </main>
+
+    <!-- RSVP Form Card -->
+    <div class="form-card" id="rsvp-card">
+      <h2 class="section-title">RSVP</h2>
+      
+      <form id="rsvpForm">
+        
+        <!-- Primary Guest Info -->
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" required placeholder="e.g. Sarah Jenkins">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" required placeholder="sarah@example.com">
+        </div>
+
+        <!-- Attendance -->
+        <div class="form-group">
+          <label>Will you be attending? *</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="attending" value="Yes" required onclick="toggleAttendance(true)">
+              Joyfully Accepts
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="attending" value="No" onclick="toggleAttendance(false)">
+              Regretfully Declines
+            </label>
+          </div>
+        </div>
+
+        <!-- Conditional Sections (shown if attending) -->
+        <div id="attending-details">
+          
+          <!-- Plus One Check -->
+          <div class="form-group">
+            <label class="checkbox-option">
+              <input type="checkbox" id="hasPlusOne" onchange="togglePlusOne(this.checked)">
+              Bringing a Partner / Guest / Child?
+            </label>
+          </div>
+
+          <div id="plusOneDetails" class="plus-one-box" style="display: none;">
+            <div class="form-group">
+              <label for="guestName">Guest / Partner Full Name</label>
+              <input type="text" id="guestName" placeholder="e.g. John Jenkins">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="guestDietary">Guest Dietary Requirements</label>
+              <input type="text" id="guestDietary" placeholder="Vegetarian, Gluten-Free, Allergies...">
+            </div>
+          </div>
+
+          <!-- Primary Dietary -->
+          <div class="form-group">
+            <label for="dietary">Your Dietary Requirements / Allergies</label>
+            <input type="text" id="dietary" placeholder="None, Vegetarian, Vegan, Nut allergy, etc.">
+          </div>
+
+          <!-- Accommodation -->
+          <div class="form-group">
+            <label for="accommodation">Accommodation Interest *</label>
+            <select id="accommodation">
+              <option value="Not Needed">No accommodation needed (Travelling home / Local)</option>
+              <option value="Interested in Venue Block">Interested in booking a room in the venue block</option>
+              <option value="Local Hotel Info">Please send local hotel recommendations</option>
+            </select>
+          </div>
+
+          <!-- Post-Wedding Breakfast / Brunch -->
+          <div class="form-group">
+            <label>Post-Wedding Breakfast / Brunch *</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="brunch" value="Yes" checked>
+                Yes, count me/us in for breakfast
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="brunch" value="No">
+                No, heading off early
+              </label>
+            </div>
+          </div>
+
+          <!-- Song Request -->
+          <div class="form-group">
+            <label for="songRequest">Song Recommendation for the DJ</label>
+            <input type="text" id="songRequest" placeholder="Artist - Song Title">
+          </div>
+
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="notes">Message for Teo & Kristian</label>
+          <textarea id="notes" rows="3" placeholder="Any questions or special notes..."></textarea>
+        </div>
+
+        <button type="submit" class="btn">Submit Response</button>
+      </form>
+
+      <!-- Confirmation Screen -->
+      <div class="success-message" id="successMessage">
+        <h3>Thank You!</h3>
+        <p>Your RSVP response has been successfully recorded.</p>
+      </div>
+    </div>
+
+    <!-- Admin Link -->
+    <div class="admin-toggle">
+      <button onclick="accessAdmin()">Couples' Admin Dashboard</button>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+      <h2 class="section-title" style="font-size: 1.6rem;">Guest Responses</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num" id="stat-attending">0</div>
+          <div class="label">Attending</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-declined">0</div>
+          <div class="label">Declined</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-brunch">0</div>
+          <div class="label">Brunch</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-rooms">0</div>
+          <div class="label">Rooms Req.</div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="exportToCSV()" style="margin-bottom: 1rem;">Export to Excel (CSV)</button>
+      
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Plus One</th>
+              <th>Dietary</th>
+              <th>Accommodation</th>
+              <th>Brunch</th>
+            </tr>
+          </thead>
+          <tbody id="responsesTable">
+            <!-- Dynamic entries -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function getStoredResponses() {
+      return JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
+    }
+
+    function toggleAttendance(isAttending) {
+      document.getElementById('attending-details').style.display = isAttending ? 'block' : 'none';
+    }
+
+    function togglePlusOne(show) {
+      document.getElementById('plusOneDetails').style.display = show ? 'block' : 'none';
+    }
+
+    // Handle Form Submit
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const attendingVal = document.querySelector('input[name="attending"]:checked').value;
+      const brunchVal = attendingVal === 'Yes' ? document.querySelector('input[name="brunch"]:checked').value : 'No';
+
+      const responseData = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        attending: attendingVal,
+        hasPlusOne: document.getElementById('hasPlusOne').checked ? 'Yes' : 'No',
+        guestName: document.getElementById('guestName').value || '-',
+        guestDietary: document.getElementById('guestDietary').value || '-',
+        dietary: document.getElementById('dietary').value || 'None',
+        accommodation: attendingVal === 'Yes' ? document.getElementById('accommodation').value : '-',
+        brunch: brunchVal,
+        songRequest: document.getElementById('songRequest').value || '-',
+        notes: document.getElementById('notes').value || '-'
+      };
+
+      const currentResponses = getStoredResponses();
+      currentResponses.push(responseData);
+      localStorage.setItem('wedding_rsvps', JSON.stringify(currentResponses));
+
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+    });
+
+    // Admin Panel Functions
+    function accessAdmin() {
+      const pass = prompt("Enter admin passcode:");
+      if (pass === "1234") { // Change default passcode here
+        document.getElementById('adminPanel').style.display = 'block';
+        renderAdminData();
+      } else if (pass !== null) {
+        alert("Incorrect passcode.");
+      }
+    }
+
+    function renderAdminData() {
+      const responses = getStoredResponses();
+      const tbody = document.getElementById('responsesTable');
+      tbody.innerHTML = '';
+
+      let attendingCount = 0;
+      let declinedCount = 0;
+      let brunchCount = 0;
+      let roomCount = 0;
+
+      responses.forEach(r => {
+        if (r.attending === 'Yes') {
+          attendingCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
+          if (r.brunch === 'Yes') brunchCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
+          if (r.accommodation.includes('Venue Block')) roomCount++;
+        } else {
+          declinedCount++;
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${r.fullName}</strong><br><small>${r.email}</small></td>
+          <td>${r.attending}</td>
+          <td>${r.hasPlusOne === 'Yes' ? r.guestName : 'No'}</td>
+          <td>Main: ${r.dietary}<br>${r.hasPlusOne === 'Yes' ? 'Guest: ' + r.guestDietary : ''}</td>
+          <td>${r.accommodation}</td>
+          <td>${r.brunch}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('stat-attending').textContent = attendingCount;
+      document.getElementById('stat-declined').textContent = declinedCount;
+      document.getElementById('stat-brunch').textContent = brunchCount;
+      document.getElementById('stat-rooms').textContent = roomCount;
+    }
+
+    function exportToCSV() {
+      const responses = getStoredResponses();
+      if (responses.length === 0) {
+        alert("No responses recorded yet.");
+        return;
+      }
+
+      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Accommodation,Brunch,Song,Notes\n";
+      
+      responses.forEach(r => {
+        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.accommodation}","${r.brunch}","${r.songRequest}","${r.notes}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'wedding_rsvps.csv');
+      a.click();
+    }
+  </script>
 </body>
 </html>
