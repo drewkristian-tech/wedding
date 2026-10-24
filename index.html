@@ -35,6 +35,60 @@
       padding: 2.5rem 1.5rem;
     }
 
+    /* Site Password Protection Gate */
+    .gate-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-color);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .gate-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 3rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .gate-card h1 {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .gate-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 2rem;
+    }
+
+    .error-msg {
+      color: #b91c1c;
+      font-size: 0.85rem;
+      margin-top: 0.8rem;
+      display: none;
+    }
+
+    /* Main Content (Hidden until unlocked) */
+    .protected-content {
+      display: none;
+    }
+
     .wrapper {
       max-width: 650px;
       margin: 0 auto;
@@ -95,6 +149,7 @@
 
     input[type="text"],
     input[type="email"],
+    input[type="password"],
     select,
     textarea {
       width: 100%;
@@ -264,285 +319,81 @@
 </head>
 <body>
 
-  <div class="wrapper">
-
-    <!-- Save the Date Image -->
-    <main class="card-container">
-      <img src="save-the-date.JPG" alt="Teo & Kristian - Save the Date" class="save-the-date-img">
-    </main>
-
-    <!-- RSVP Form Card -->
-    <div class="form-card" id="rsvp-card">
-      <h2 class="section-title">RSVP</h2>
-      
-      <form id="rsvpForm">
-        
-        <!-- Primary Guest Info -->
-        <div class="form-group">
-          <label for="fullName">Full Name *</label>
-          <input type="text" id="fullName" required placeholder="e.g. Sarah Jenkins">
+  <!-- Site Access Gate Modal -->
+  <div class="gate-overlay" id="gateOverlay">
+    <div class="gate-card">
+      <h1>Teo & Kristian</h1>
+      <p>Enter Password to View</p>
+      <form id="gateForm">
+        <div class="form-group" style="margin-bottom: 0.5rem;">
+          <input type="password" id="sitePassword" placeholder="Password" required style="text-align: center;">
         </div>
-
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" id="email" required placeholder="sarah@example.com">
-        </div>
-
-        <!-- Attendance -->
-        <div class="form-group">
-          <label>Will you be attending? *</label>
-          <div class="radio-group">
-            <label class="radio-option">
-              <input type="radio" name="attending" value="Yes" required onclick="toggleAttendance(true)">
-              Joyfully Accepts
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="attending" value="No" onclick="toggleAttendance(false)">
-              Regretfully Declines
-            </label>
-          </div>
-        </div>
-
-        <!-- Conditional Sections (shown if attending) -->
-        <div id="attending-details">
-          
-          <!-- Plus One Check -->
-          <div class="form-group">
-            <label class="checkbox-option">
-              <input type="checkbox" id="hasPlusOne" onchange="togglePlusOne(this.checked)">
-              Bringing a Partner / Guest / Child?
-            </label>
-          </div>
-
-          <div id="plusOneDetails" class="plus-one-box" style="display: none;">
-            <div class="form-group">
-              <label for="guestName">Guest / Partner Full Name</label>
-              <input type="text" id="guestName" placeholder="e.g. John Jenkins">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label for="guestDietary">Guest Dietary Requirements</label>
-              <input type="text" id="guestDietary" placeholder="Vegetarian, Gluten-Free, Allergies...">
-            </div>
-          </div>
-
-          <!-- Primary Dietary -->
-          <div class="form-group">
-            <label for="dietary">Your Dietary Requirements / Allergies</label>
-            <input type="text" id="dietary" placeholder="None, Vegetarian, Vegan, Nut allergy, etc.">
-          </div>
-
-          <!-- Accommodation -->
-          <div class="form-group">
-            <label for="accommodation">Accommodation Interest *</label>
-            <select id="accommodation">
-              <option value="Not Needed">No accommodation needed (Travelling home / Local)</option>
-              <option value="Interested in Venue Block">Interested in booking a room in the venue block</option>
-              <option value="Local Hotel Info">Please send local hotel recommendations</option>
-            </select>
-          </div>
-
-          <!-- Post-Wedding Breakfast / Brunch -->
-          <div class="form-group">
-            <label>Post-Wedding Breakfast / Brunch *</label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="brunch" value="Yes" checked>
-                Yes, count me/us in for breakfast
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="brunch" value="No">
-                No, heading off early
-              </label>
-            </div>
-          </div>
-
-          <!-- Song Request -->
-          <div class="form-group">
-            <label for="songRequest">Song Recommendation for the DJ</label>
-            <input type="text" id="songRequest" placeholder="Artist - Song Title">
-          </div>
-
-        </div>
-
-        <!-- Message -->
-        <div class="form-group">
-          <label for="notes">Message for Teo & Kristian</label>
-          <textarea id="notes" rows="3" placeholder="Any questions or special notes..."></textarea>
-        </div>
-
-        <button type="submit" class="btn">Submit Response</button>
+        <button type="submit" class="btn">Enter</button>
+        <div class="error-msg" id="gateError">Incorrect password. Please try again.</div>
       </form>
-
-      <!-- Confirmation Screen -->
-      <div class="success-message" id="successMessage">
-        <h3>Thank You!</h3>
-        <p>Your RSVP response has been successfully recorded.</p>
-      </div>
     </div>
-
-    <!-- Admin Link -->
-    <div class="admin-toggle">
-      <button onclick="accessAdmin()">Couples' Admin Dashboard</button>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-      <h2 class="section-title" style="font-size: 1.6rem;">Guest Responses</h2>
-      
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="num" id="stat-attending">0</div>
-          <div class="label">Attending</div>
-        </div>
-        <div class="stat-card">
-          <div class="num" id="stat-declined">0</div>
-          <div class="label">Declined</div>
-        </div>
-        <div class="stat-card">
-          <div class="num" id="stat-brunch">0</div>
-          <div class="label">Brunch</div>
-        </div>
-        <div class="stat-card">
-          <div class="num" id="stat-rooms">0</div>
-          <div class="label">Rooms Req.</div>
-        </div>
-      </div>
-
-      <button class="btn btn-secondary" onclick="exportToCSV()" style="margin-bottom: 1rem;">Export to Excel (CSV)</button>
-      
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Plus One</th>
-              <th>Dietary</th>
-              <th>Accommodation</th>
-              <th>Brunch</th>
-            </tr>
-          </thead>
-          <tbody id="responsesTable">
-            <!-- Dynamic entries -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
   </div>
 
-  <script>
-    function getStoredResponses() {
-      return JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
-    }
+  <!-- Protected Site Content -->
+  <div class="protected-content" id="protectedContent">
+    <div class="wrapper">
 
-    function toggleAttendance(isAttending) {
-      document.getElementById('attending-details').style.display = isAttending ? 'block' : 'none';
-    }
+      <!-- Save the Date Image -->
+      <main class="card-container">
+        <img src="save-the-date.JPG" alt="Teo & Kristian - Save the Date" class="save-the-date-img">
+      </main>
 
-    function togglePlusOne(show) {
-      document.getElementById('plusOneDetails').style.display = show ? 'block' : 'none';
-    }
+      <!-- RSVP Form Card -->
+      <div class="form-card" id="rsvp-card">
+        <h2 class="section-title">RSVP</h2>
+        
+        <form id="rsvpForm">
+          
+          <!-- Primary Guest Info -->
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" required placeholder="e.g. Sarah Jenkins">
+          </div>
 
-    // Handle Form Submit
-    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" required placeholder="sarah@example.com">
+          </div>
 
-      const attendingVal = document.querySelector('input[name="attending"]:checked').value;
-      const brunchVal = attendingVal === 'Yes' ? document.querySelector('input[name="brunch"]:checked').value : 'No';
+          <!-- Attendance -->
+          <div class="form-group">
+            <label>Will you be attending? *</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="attending" value="Yes" required onclick="toggleAttendance(true)">
+                Joyfully Accepts
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="attending" value="No" onclick="toggleAttendance(false)">
+                Regretfully Declines
+              </label>
+            </div>
+          </div>
 
-      const responseData = {
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        attending: attendingVal,
-        hasPlusOne: document.getElementById('hasPlusOne').checked ? 'Yes' : 'No',
-        guestName: document.getElementById('guestName').value || '-',
-        guestDietary: document.getElementById('guestDietary').value || '-',
-        dietary: document.getElementById('dietary').value || 'None',
-        accommodation: attendingVal === 'Yes' ? document.getElementById('accommodation').value : '-',
-        brunch: brunchVal,
-        songRequest: document.getElementById('songRequest').value || '-',
-        notes: document.getElementById('notes').value || '-'
-      };
+          <!-- Conditional Sections (shown if attending) -->
+          <div id="attending-details">
+            
+            <!-- Plus One Check -->
+            <div class="form-group">
+              <label class="checkbox-option">
+                <input type="checkbox" id="hasPlusOne" onchange="togglePlusOne(this.checked)">
+                Bringing a Partner / Guest / Child?
+              </label>
+            </div>
 
-      const currentResponses = getStoredResponses();
-      currentResponses.push(responseData);
-      localStorage.setItem('wedding_rsvps', JSON.stringify(currentResponses));
+            <div id="plusOneDetails" class="plus-one-box" style="display: none;">
+              <div class="form-group">
+                <label for="guestName">Guest / Partner Full Name</label>
+                <input type="text" id="guestName" placeholder="e.g. John Jenkins">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="guestDietary">Guest Dietary Requirements</label>
+                <input type="text" id="guestDietary" placeholder="Vegetarian, Gluten-Free, Allergies...">
+              </div>
+            </div>
 
-      document.getElementById('rsvpForm').style.display = 'none';
-      document.getElementById('successMessage').style.display = 'block';
-    });
-
-    // Admin Panel Functions
-    function accessAdmin() {
-      const pass = prompt("Enter admin passcode:");
-      if (pass === "1234") { // Change default passcode here
-        document.getElementById('adminPanel').style.display = 'block';
-        renderAdminData();
-      } else if (pass !== null) {
-        alert("Incorrect passcode.");
-      }
-    }
-
-    function renderAdminData() {
-      const responses = getStoredResponses();
-      const tbody = document.getElementById('responsesTable');
-      tbody.innerHTML = '';
-
-      let attendingCount = 0;
-      let declinedCount = 0;
-      let brunchCount = 0;
-      let roomCount = 0;
-
-      responses.forEach(r => {
-        if (r.attending === 'Yes') {
-          attendingCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
-          if (r.brunch === 'Yes') brunchCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
-          if (r.accommodation.includes('Venue Block')) roomCount++;
-        } else {
-          declinedCount++;
-        }
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><strong>${r.fullName}</strong><br><small>${r.email}</small></td>
-          <td>${r.attending}</td>
-          <td>${r.hasPlusOne === 'Yes' ? r.guestName : 'No'}</td>
-          <td>Main: ${r.dietary}<br>${r.hasPlusOne === 'Yes' ? 'Guest: ' + r.guestDietary : ''}</td>
-          <td>${r.accommodation}</td>
-          <td>${r.brunch}</td>
-        `;
-        tbody.appendChild(row);
-      });
-
-      document.getElementById('stat-attending').textContent = attendingCount;
-      document.getElementById('stat-declined').textContent = declinedCount;
-      document.getElementById('stat-brunch').textContent = brunchCount;
-      document.getElementById('stat-rooms').textContent = roomCount;
-    }
-
-    function exportToCSV() {
-      const responses = getStoredResponses();
-      if (responses.length === 0) {
-        alert("No responses recorded yet.");
-        return;
-      }
-
-      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Accommodation,Brunch,Song,Notes\n";
-      
-      responses.forEach(r => {
-        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.accommodation}","${r.brunch}","${r.songRequest}","${r.notes}"\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.setAttribute('href', url);
-      a.setAttribute('download', 'wedding_rsvps.csv');
-      a.click();
-    }
-  </script>
-</body>
-</html>
