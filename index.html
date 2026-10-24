@@ -103,4 +103,634 @@
       margin-bottom: 2.5rem;
     }
 
-    .save-the-date-img
+    .save-the-date-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Section Cards */
+    .info-card, .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    /* Weekend Outline Styles */
+    .info-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .info-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-block h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .info-block p {
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    .info-block ul {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+      font-size: 0.92rem;
+      margin-top: 0.3rem;
+    }
+
+    .info-block ul li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      background-color: #faf9f6;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background-color: #fff;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-option, .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .radio-option input, .checkbox-option input {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+    }
+
+    .plus-one-box {
+      background: var(--accent-light);
+      padding: 1.2rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      border: 1px dashed var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #756a54;
+    }
+
+    .btn-secondary {
+      background-color: #2c2c2c;
+      width: auto;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.75rem;
+    }
+
+    .btn-secondary:hover {
+      background-color: #444;
+    }
+
+    /* Admin Section */
+    .admin-toggle {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .admin-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .admin-panel {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-card {
+      background: var(--accent-light);
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 1.8rem;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .stat-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #faf9f6;
+      font-weight: 600;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: var(--accent-light);
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+    }
+
+    .success-message h3 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Access Gate Modal -->
+  <div class="gate-overlay" id="gateOverlay">
+    <div class="gate-card">
+      <h1>Teo & Kristian</h1>
+      <p>Enter Password to View</p>
+      <form id="gateForm">
+        <div class="form-group" style="margin-bottom: 0.5rem;">
+          <input type="password" id="sitePassword" placeholder="Password" required style="text-align: center;">
+        </div>
+        <button type="submit" class="btn">Enter</button>
+        <div class="error-msg" id="gateError">Incorrect password. Please try again.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Protected Site Content -->
+  <div class="protected-content" id="protectedContent">
+    <div class="wrapper">
+
+      <!-- Save the Date Image -->
+      <main class="card-container">
+        <img src="save-the-date.JPG" alt="Teo & Kristian - Save the Date" class="save-the-date-img">
+      </main>
+
+      <!-- Weekend Overview Section -->
+      <section class="info-card">
+        <h2 class="section-title">The Weekend</h2>
+        
+        <div class="info-block">
+          <h3>Schedule & Events</h3>
+          <ul>
+            <li><strong>Friday 30th July:</strong> Welcome Pizza Party (Evening)</li>
+            <li><strong>Saturday 31st July:</strong> Wedding Ceremony at 5:00 PM, followed by reception, dinner & dancing</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h3>Dress Code</h3>
+          <p><strong>Smart Formal</strong> <em>(Kindly note: please don't wear white)</em></p>
+        </div>
+
+        <div class="info-block">
+          <h3>Travel & Florence Transfers</h3>
+          <p>We are arranging a group minibus service from <strong>Florence Airport (FLR)</strong>:</p>
+          <ul>
+            <li><strong>Friday 30th July:</strong> Pickup to correspond with mid-afternoon flight arrivals.</li>
+            <li><strong>Sunday 2nd August:</strong> Return departure to Florence Airport.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- RSVP Form Card -->
+      <div class="form-card" id="rsvp-card">
+        <h2 class="section-title">RSVP</h2>
+        
+        <form id="rsvpForm">
+          
+          <!-- Primary Guest Info -->
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="Full Name" required placeholder="e.g. Sarah Jenkins">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="Email" required placeholder="sarah@example.com">
+          </div>
+
+          <!-- Attendance -->
+          <div class="form-group">
+            <label>Will you be attending? *</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="attending" value="Yes" required onclick="toggleAttendance(true)">
+                Joyfully Accepts
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="attending" value="No" onclick="toggleAttendance(false)">
+                Regretfully Declines
+              </label>
+            </div>
+          </div>
+
+          <!-- Conditional Sections (shown if attending) -->
+          <div id="attending-details">
+            
+            <!-- Plus One Check -->
+            <div class="form-group">
+              <label class="checkbox-option">
+                <input type="checkbox" id="hasPlusOne" name="Bringing Guest" value="Yes" onchange="togglePlusOne(this.checked)">
+                Bringing a Partner / Guest / Child?
+              </label>
+            </div>
+
+            <div id="plusOneDetails" class="plus-one-box" style="display: none;">
+              <div class="form-group">
+                <label for="guestName">Guest / Partner Full Name</label>
+                <input type="text" id="guestName" name="Guest Name" placeholder="e.g. John Jenkins">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="guestDietary">Guest Dietary Requirements</label>
+                <input type="text" id="guestDietary" name="Guest Dietary" placeholder="Vegetarian, Gluten-Free, Allergies...">
+              </div>
+            </div>
+
+            <!-- Primary Dietary -->
+            <div class="form-group">
+              <label for="dietary">Your Dietary Requirements / Allergies</label>
+              <input type="text" id="dietary" name="Main Dietary" placeholder="None, Vegetarian, Vegan, Nut allergy, etc.">
+            </div>
+
+            <!-- Welcome Pizza Party -->
+            <div class="form-group">
+              <label>Welcome Pizza Party (Evening of Friday 30th July) *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="pizzaParty" value="Yes" checked>
+                  Yes, count me/us in for pizza
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="pizzaParty" value="No">
+                  No, arriving later
+                </label>
+              </div>
+            </div>
+
+            <!-- Accommodation -->
+            <div class="form-group">
+              <label for="accommodation">Accommodation Interest *</label>
+              <select id="accommodation" name="Accommodation">
+                <option value="Venue AC (£200)">Venue Accommodation (£200 for 2 nights w/ AC)</option>
+                <option value="Venue Non-AC (£150)">Venue Accommodation (£150 for 2 nights w/ thick stone Tuscan walls)</option>
+                <option value="Le Palaie (Shuttle)">Staying nearby at Le Palaie (Shuttle provided for ceremony & end of night)</option>
+                <option value="Independent">Sorting accommodation myself</option>
+              </select>
+            </div>
+
+            <!-- Song Request -->
+            <div class="form-group">
+              <label for="songRequest">Song Recommendation for the DJ</label>
+              <input type="text" id="songRequest" name="Song Recommendation" placeholder="Artist - Song Title">
+            </div>
+
+            <!-- WhatsApp Number -->
+            <div class="form-group">
+              <label for="phone">Phone Number (For WhatsApp Updates)</label>
+              <input type="tel" id="phone" name="Phone Number" placeholder="+44 7123 456789">
+              <small style="color: var(--text-muted); font-size: 0.78rem;">Enter your number if you'd like to receive updates nearer the time through a WhatsApp group.</small>
+            </div>
+
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label for="notes">Message for Teo & Kristian</label>
+            <textarea id="notes" name="Notes" rows="3" placeholder="Any questions or special notes..."></textarea>
+          </div>
+
+          <button type="submit" class="btn">Submit Response</button>
+        </form>
+
+        <!-- Confirmation Screen -->
+        <div class="success-message" id="successMessage">
+          <h3>Thank You!</h3>
+          <p>Your RSVP response has been successfully recorded.</p>
+        </div>
+      </div>
+
+      <!-- Admin Link -->
+      <div class="admin-toggle">
+        <button onclick="accessAdmin()">Couples' Admin Dashboard</button>
+      </div>
+
+      <!-- Admin Panel -->
+      <div class="admin-panel" id="adminPanel">
+        <h2 class="section-title" style="font-size: 1.6rem;">Guest Responses</h2>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="num" id="stat-attending">0</div>
+            <div class="label">Attending</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-declined">0</div>
+            <div class="label">Declined</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-pizza">0</div>
+            <div class="label">Pizza Party</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-rooms">0</div>
+            <div class="label">Venue Rooms</div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="exportToCSV()" style="margin-bottom: 1rem;">Export to Excel (CSV)</button>
+        
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Plus One</th>
+                <th>Dietary</th>
+                <th>Pizza Party</th>
+                <th>Accommodation</th>
+                <th>Phone</th>
+              </tr>
+            </thead>
+            <tbody id="responsesTable">
+              <!-- Dynamic entries -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Configuration Settings
+    const SITE_PASSWORD = "Tuscany";
+    // Replace the URL below with your Formspree endpoint (e.g. https://formspree.io/f/xanyqwbz)
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID_HERE";
+
+    function checkAuth() {
+      if (sessionStorage.getItem('tk_authenticated') === 'true') {
+        document.getElementById('gateOverlay').style.display = 'none';
+        document.getElementById('protectedContent').style.display = 'block';
+      }
+    }
+
+    document.getElementById('gateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inputPass = document.getElementById('sitePassword').value.trim();
+      
+      if (inputPass.toLowerCase() === SITE_PASSWORD.toLowerCase()) {
+        sessionStorage.setItem('tk_authenticated', 'true');
+        document.getElementById('gateOverlay').style.display = 'none';
+        document.getElementById('protectedContent').style.display = 'block';
+      } else {
+        document.getElementById('gateError').style.display = 'block';
+      }
+    });
+
+    checkAuth();
+
+    function getStoredResponses() {
+      return JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
+    }
+
+    function toggleAttendance(isAttending) {
+      document.getElementById('attending-details').style.display = isAttending ? 'block' : 'none';
+    }
+
+    function togglePlusOne(show) {
+      document.getElementById('plusOneDetails').style.display = show ? 'block' : 'none';
+    }
+
+    // Handle Form Submit with Email Alert via Formspree
+    document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const attendingVal = document.querySelector('input[name="attending"]:checked').value;
+      const pizzaVal = attendingVal === 'Yes' ? document.querySelector('input[name="pizzaParty"]:checked').value : 'No';
+
+      const responseData = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        attending: attendingVal,
+        hasPlusOne: document.getElementById('hasPlusOne').checked ? 'Yes' : 'No',
+        guestName: document.getElementById('guestName').value || '-',
+        guestDietary: document.getElementById('guestDietary').value || '-',
+        dietary: document.getElementById('dietary').value || 'None',
+        pizzaParty: pizzaVal,
+        accommodation: attendingVal === 'Yes' ? document.getElementById('accommodation').value : '-',
+        songRequest: document.getElementById('songRequest').value || '-',
+        phone: document.getElementById('phone') ? document.getElementById('phone').value || '-' : '-',
+        notes: document.getElementById('notes').value || '-'
+      };
+
+      // 1. Save locally for Admin Dashboard
+      const currentResponses = getStoredResponses();
+      currentResponses.push(responseData);
+      localStorage.setItem('wedding_rsvps', JSON.stringify(currentResponses));
+
+      // 2. Send email notification via Formspree (if endpoint set)
+      if (FORMSPREE_ENDPOINT && !FORMSPREE_ENDPOINT.includes("YOUR_FORMSPREE_ID_HERE")) {
+        try {
+          await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            body: new FormData(document.getElementById('rsvpForm')),
+            headers: { 'Accept': 'application/json' }
+          });
+        } catch (err) {
+          console.error("Email notification error:", err);
+        }
+      }
+
+      // 3. Show confirmation screen
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+    });
+
+    // Admin Panel Functions
+    function accessAdmin() {
+      const pass = prompt("Enter admin passcode:");
+      if (pass === "1234") {
+        document.getElementById('adminPanel').style.display = 'block';
+        renderAdminData();
+      } else if (pass !== null) {
+        alert("Incorrect passcode.");
+      }
+    }
+
+    function renderAdminData() {
+      const responses = getStoredResponses();
+      const tbody = document.getElementById('responsesTable');
+      tbody.innerHTML = '';
+
+      let attendingCount = 0;
+      let declinedCount = 0;
+      let pizzaCount = 0;
+      let roomCount = 0;
+
+      responses.forEach(r => {
+        if (r.attending === 'Yes') {
+          attendingCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
+          if (r.pizzaParty === 'Yes') pizzaCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
+          if (r.accommodation.includes('Venue')) roomCount++;
+        } else {
+          declinedCount++;
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${r.fullName}</strong><br><small>${r.email}</small></td>
+          <td>${r.attending}</td>
+          <td>${r.hasPlusOne === 'Yes' ? r.guestName : 'No'}</td>
+          <td>Main: ${r.dietary}<br>${r.hasPlusOne === 'Yes' ? 'Guest: ' + r.guestDietary : ''}</td>
+          <td>${r.pizzaParty}</td>
+          <td>${r.accommodation}</td>
+          <td>${r.phone}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('stat-attending').textContent = attendingCount;
+      document.getElementById('stat-declined').textContent = declinedCount;
+      document.getElementById('stat-pizza').textContent = pizzaCount;
+      document.getElementById('stat-rooms').textContent = roomCount;
+    }
+
+    function exportToCSV() {
+      const responses = getStoredResponses();
+      if (responses.length === 0) {
+        alert("No responses recorded yet.");
+        return;
+      }
+
+      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Pizza Party,Accommodation,Song,Phone,Notes\n";
+      
+      responses.forEach(r => {
+        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.pizzaParty}","${r.accommodation}","${r.songRequest}","${r.phone}","${r.notes}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'wedding_rsvps.csv');
+      a.click();
+    }
+  </script>
+</body>
+</html>
