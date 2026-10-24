@@ -224,7 +224,7 @@
       height: 18px;
     }
 
-    .plus-one-box {
+    .plus-one-box, .sub-section-box {
       background: var(--accent-light);
       padding: 1.2rem;
       border-radius: 6px;
@@ -386,23 +386,16 @@
           <h3>Schedule & Events</h3>
           <ul>
             <li><strong>Friday 30th July:</strong> Welcome Pizza Party (Evening)</li>
-            <li><strong>Saturday 31st July:</strong> Wedding Ceremony at 5:00 PM, followed by reception, dinner & dancing</li>
+            <li><strong>Saturday 31st July:</strong> Late afternoon ceremony, followed by reception, dinner & dancing</li>
             <li><strong>Sunday 1st August:</strong> Post-Wedding Brunch</li>
           </ul>
+          <p style="margin-top: 0.6rem; color: var(--text-muted);"><em>Full itinerary to follow</em></p>
         </div>
 
         <div class="info-block">
           <h3>Dress Code</h3>
-          <p><strong>Smart Formal</strong> <em>(Kindly note: please don't wear white)</em></p>
-        </div>
-
-        <div class="info-block">
-          <h3>Travel & Florence Transfers</h3>
-          <p>We are arranging a group minibus service from <strong>Florence Airport (FLR)</strong>:</p>
-          <ul>
-            <li><strong>Friday 30th July:</strong> Pickup to correspond with mid-afternoon flight arrivals.</li>
-            <li><strong>Sunday 2nd August:</strong> Return departure to Florence Airport.</li>
-          </ul>
+          <p><strong>Smart Formal</strong></p>
+          <p style="color: var(--text-muted); font-size: 0.88rem;"><em>We kindly ask guests to avoid white, cream, or close-to-white colours.</em></p>
         </div>
       </section>
 
@@ -496,19 +489,27 @@
               </div>
             </div>
 
-            <!-- Accommodation -->
+            <!-- Accommodation Stage 1 -->
             <div class="form-group">
-              <label for="accommodation">Accommodation Interest *</label>
-              <select id="accommodation" name="Accommodation">
-                <option value="Venue AC (£200)">Venue Accommodation (£200 for 2 nights w/ AC)</option>
-                <option value="Venue Non-AC (£150)">Venue Accommodation (£150 for 2 nights w/ thick stone Tuscan walls)</option>
-                <option value="Venue Either (AC/Non-AC)">Venue Accommodation - Happy with AC or Non-AC (Whichever available)</option>
-                <option value="Le Palaie (Shuttle)">Staying nearby at Le Palaie (Shuttle provided for ceremony & end of night)</option>
-                <option value="Independent">Sorting accommodation myself</option>
+              <label for="venueAccom">Venue Accommodation Preference *</label>
+              <select id="venueAccom" name="Venue Accommodation Stage 1">
+                <option value="Venue AC (£200)">Yes - Venue room with AC (£200 for 2 nights)</option>
+                <option value="Venue Non-AC (£150)">Yes - Venue room without AC (£150 for 2 nights, thick stone walls)</option>
+                <option value="Venue Either (AC/Non-AC)">Yes - Happy with either AC or Non-AC</option>
+                <option value="Prefer Elsewhere">No - Prefer to stay elsewhere</option>
               </select>
               <small style="color: var(--text-muted); font-size: 0.78rem; display: block; margin-top: 0.4rem;">
                 Note: Venue accommodation is limited and allocation will be decided based on compatibility in terms of rooms in a shared apartment.
               </small>
+            </div>
+
+            <!-- Accommodation Stage 2 -->
+            <div class="form-group">
+              <label for="fallbackAccom">If unable to stay at the venue *</label>
+              <select id="fallbackAccom" name="Alternative Accommodation Stage 2">
+                <option value="Local Recommended (Shuttle)">Send local recommendations (Minibus transfer provided to and from wedding)</option>
+                <option value="Independent">Source accommodation independently</option>
+              </select>
             </div>
 
             <!-- Song Request -->
@@ -562,7 +563,7 @@
           </div>
           <div class="stat-card">
             <div class="num" id="stat-pizza">0</div>
-            <div class="label">Pizza Party</div>
+            <div class="label">Pizza</div>
           </div>
           <div class="stat-card">
             <div class="num" id="stat-brunch">0</div>
@@ -586,7 +587,8 @@
                 <th>Dietary</th>
                 <th>Pizza</th>
                 <th>Brunch</th>
-                <th>Accommodation</th>
+                <th>Venue Accom (Stage 1)</th>
+                <th>Fallback Accom (Stage 2)</th>
                 <th>Phone</th>
               </tr>
             </thead>
@@ -660,7 +662,8 @@
         dietary: document.getElementById('dietary').value || 'None',
         pizzaParty: pizzaVal,
         brunch: brunchVal,
-        accommodation: attendingVal === 'Yes' ? document.getElementById('accommodation').value : '-',
+        venueAccom: attendingVal === 'Yes' ? document.getElementById('venueAccom').value : '-',
+        fallbackAccom: attendingVal === 'Yes' ? document.getElementById('fallbackAccom').value : '-',
         songRequest: document.getElementById('songRequest').value || '-',
         phone: document.getElementById('phone') ? document.getElementById('phone').value || '-' : '-',
         notes: document.getElementById('notes').value || '-'
@@ -716,7 +719,7 @@
           attendingCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
           if (r.pizzaParty === 'Yes') pizzaCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
           if (r.brunch === 'Yes') brunchCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
-          if (r.accommodation.includes('Venue')) roomCount++;
+          if (r.venueAccom.includes('Venue')) roomCount++;
         } else {
           declinedCount++;
         }
@@ -729,7 +732,8 @@
           <td>Main: ${r.dietary}<br>${r.hasPlusOne === 'Yes' ? 'Guest: ' + r.guestDietary : ''}</td>
           <td>${r.pizzaParty}</td>
           <td>${r.brunch}</td>
-          <td>${r.accommodation}</td>
+          <td>${r.venueAccom}</td>
+          <td>${r.fallbackAccom}</td>
           <td>${r.phone}</td>
         `;
         tbody.appendChild(row);
@@ -749,10 +753,10 @@
         return;
       }
 
-      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Pizza Party,Brunch,Accommodation,Song,Phone,Notes\n";
+      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Pizza Party,Brunch,Venue Accom Stage 1,Fallback Accom Stage 2,Song,Phone,Notes\n";
       
       responses.forEach(r => {
-        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.pizzaParty}","${r.brunch}","${r.accommodation}","${r.songRequest}","${r.phone}","${r.notes}"\n`;
+        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.pizzaParty}","${r.brunch}","${r.venueAccom}","${r.fallbackAccom}","${r.songRequest}","${r.phone}","${r.notes}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv' });
