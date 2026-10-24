@@ -293,7 +293,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
       gap: 1rem;
       margin: 1.5rem 0;
     }
@@ -306,14 +306,14 @@
     }
 
     .stat-card .num {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-family: var(--font-serif);
       font-weight: 600;
       color: var(--accent);
     }
 
     .stat-card .label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       color: var(--text-muted);
     }
@@ -387,6 +387,7 @@
           <ul>
             <li><strong>Friday 30th July:</strong> Welcome Pizza Party (Evening)</li>
             <li><strong>Saturday 31st July:</strong> Wedding Ceremony at 5:00 PM, followed by reception, dinner & dancing</li>
+            <li><strong>Sunday 1st August:</strong> Post-Wedding Brunch</li>
           </ul>
         </div>
 
@@ -480,15 +481,34 @@
               </div>
             </div>
 
+            <!-- Post-Wedding Brunch -->
+            <div class="form-group">
+              <label>Post-Wedding Brunch (Sunday 1st August) *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="brunch" value="Yes" checked>
+                  Yes, count me/us in for brunch
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="brunch" value="No">
+                  No, heading off early
+                </label>
+              </div>
+            </div>
+
             <!-- Accommodation -->
             <div class="form-group">
               <label for="accommodation">Accommodation Interest *</label>
               <select id="accommodation" name="Accommodation">
                 <option value="Venue AC (£200)">Venue Accommodation (£200 for 2 nights w/ AC)</option>
                 <option value="Venue Non-AC (£150)">Venue Accommodation (£150 for 2 nights w/ thick stone Tuscan walls)</option>
+                <option value="Venue Either (AC/Non-AC)">Venue Accommodation - Happy with AC or Non-AC (Whichever available)</option>
                 <option value="Le Palaie (Shuttle)">Staying nearby at Le Palaie (Shuttle provided for ceremony & end of night)</option>
                 <option value="Independent">Sorting accommodation myself</option>
               </select>
+              <small style="color: var(--text-muted); font-size: 0.78rem; display: block; margin-top: 0.4rem;">
+                Note: Venue accommodation is limited and allocation will be decided based on compatibility in terms of rooms in a shared apartment.
+              </small>
             </div>
 
             <!-- Song Request -->
@@ -545,6 +565,10 @@
             <div class="label">Pizza Party</div>
           </div>
           <div class="stat-card">
+            <div class="num" id="stat-brunch">0</div>
+            <div class="label">Brunch</div>
+          </div>
+          <div class="stat-card">
             <div class="num" id="stat-rooms">0</div>
             <div class="label">Venue Rooms</div>
           </div>
@@ -560,7 +584,8 @@
                 <th>Status</th>
                 <th>Plus One</th>
                 <th>Dietary</th>
-                <th>Pizza Party</th>
+                <th>Pizza</th>
+                <th>Brunch</th>
                 <th>Accommodation</th>
                 <th>Phone</th>
               </tr>
@@ -578,7 +603,7 @@
   <script>
     // Configuration Settings
     const SITE_PASSWORD = "Tuscany";
-    // Replace the URL below with your Formspree endpoint (e.g. https://formspree.io/f/xanyqwbz)
+    // Replace the URL below with your Formspree endpoint if using email notifications
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID_HERE";
 
     function checkAuth() {
@@ -615,12 +640,13 @@
       document.getElementById('plusOneDetails').style.display = show ? 'block' : 'none';
     }
 
-    // Handle Form Submit with Email Alert via Formspree
+    // Handle Form Submit
     document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const attendingVal = document.querySelector('input[name="attending"]:checked').value;
       const pizzaVal = attendingVal === 'Yes' ? document.querySelector('input[name="pizzaParty"]:checked').value : 'No';
+      const brunchVal = attendingVal === 'Yes' ? document.querySelector('input[name="brunch"]:checked').value : 'No';
 
       const responseData = {
         id: Date.now(),
@@ -633,6 +659,7 @@
         guestDietary: document.getElementById('guestDietary').value || '-',
         dietary: document.getElementById('dietary').value || 'None',
         pizzaParty: pizzaVal,
+        brunch: brunchVal,
         accommodation: attendingVal === 'Yes' ? document.getElementById('accommodation').value : '-',
         songRequest: document.getElementById('songRequest').value || '-',
         phone: document.getElementById('phone') ? document.getElementById('phone').value || '-' : '-',
@@ -681,12 +708,14 @@
       let attendingCount = 0;
       let declinedCount = 0;
       let pizzaCount = 0;
+      let brunchCount = 0;
       let roomCount = 0;
 
       responses.forEach(r => {
         if (r.attending === 'Yes') {
           attendingCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
           if (r.pizzaParty === 'Yes') pizzaCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
+          if (r.brunch === 'Yes') brunchCount += (r.hasPlusOne === 'Yes' ? 2 : 1);
           if (r.accommodation.includes('Venue')) roomCount++;
         } else {
           declinedCount++;
@@ -699,6 +728,7 @@
           <td>${r.hasPlusOne === 'Yes' ? r.guestName : 'No'}</td>
           <td>Main: ${r.dietary}<br>${r.hasPlusOne === 'Yes' ? 'Guest: ' + r.guestDietary : ''}</td>
           <td>${r.pizzaParty}</td>
+          <td>${r.brunch}</td>
           <td>${r.accommodation}</td>
           <td>${r.phone}</td>
         `;
@@ -708,6 +738,7 @@
       document.getElementById('stat-attending').textContent = attendingCount;
       document.getElementById('stat-declined').textContent = declinedCount;
       document.getElementById('stat-pizza').textContent = pizzaCount;
+      document.getElementById('stat-brunch').textContent = brunchCount;
       document.getElementById('stat-rooms').textContent = roomCount;
     }
 
@@ -718,10 +749,10 @@
         return;
       }
 
-      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Pizza Party,Accommodation,Song,Phone,Notes\n";
+      let csv = "Timestamp,Full Name,Email,Attending,Plus One,Guest Name,Guest Dietary,Main Dietary,Pizza Party,Brunch,Accommodation,Song,Phone,Notes\n";
       
       responses.forEach(r => {
-        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.pizzaParty}","${r.accommodation}","${r.songRequest}","${r.phone}","${r.notes}"\n`;
+        csv += `"${r.date}","${r.fullName}","${r.email}","${r.attending}","${r.hasPlusOne}","${r.guestName}","${r.guestDietary}","${r.dietary}","${r.pizzaParty}","${r.brunch}","${r.accommodation}","${r.songRequest}","${r.phone}","${r.notes}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv' });
